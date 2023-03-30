@@ -13,7 +13,7 @@ export async function action({ request, params }) {
 
 function PaintingFrame({ imgSource, title}) {
     return (
-      <img src={imgSource} alt={title} width="8 00" height="auto"/> 
+      <img src={imgSource} alt={title} width="800" height="auto"/> 
     )
 }
 

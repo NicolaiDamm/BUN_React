@@ -1,9 +1,11 @@
-import reactLogo from '../assets/dune.png'
+import duneImage from '../assets/dune.png'
 
 export default function Index() {
     return (
       <div>
-      <img src={reactLogo} className="logo react" alt="React logo" />
+      <img src={duneImage} className="logo react" alt="React logo" />
+      <img src={duneImage} className="logo react" alt="React logo" />
+      <img src={duneImage} className="logo react" alt="React logo" />
       <p id="zero-state">
         This is a demo for React Router.
         <br />
