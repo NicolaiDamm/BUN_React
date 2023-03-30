@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  createHashRouter,
   RouterProvider,
   Route,
 } from "react-router-dom";
@@ -17,31 +18,59 @@ import Painting, {
 } from "./routes/painting";
 import Index from "./routes/index";
 
-const router = createBrowserRouter(
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route
+//       path="/"
+//       element={<Root />}
+//       loader={rootLoader}
+//       action={rootAction}
+//       errorElement={<ErrorPage />}
+//     >
+//       <Route errorElement={<ErrorPage />}>
+//         <Route index element={<Index />} />
+//         <Route
+//           path="contacts/:contactId"
+//           element={<Contact />}
+//           loader={contactLoader}
+//         />
+//         <Route
+//           path="paintings/:paintingId" 
+//           element={<Painting />}
+//           loader={paintingLoader}
+//         />
+//       </Route>
+//     </Route>
+//   ), {
+//     basename: "/BUN_React",
+//   }
+// );
+
+const router = createHashRouter(
   createRoutesFromElements(
-    <Route
-      path="/"
-      element={<Root />}
-      loader={rootLoader}
-      action={rootAction}
-      errorElement={<ErrorPage />}
-    >
-      <Route errorElement={<ErrorPage />}>
-        <Route index element={<Index />} />
         <Route
-          path="contacts/:contactId"
-          element={<Contact />}
-          loader={contactLoader}
-        />
-        <Route
-          path="paintings/:paintingId" 
-          element={<Painting />}
-          loader={paintingLoader}
-        />
-      </Route>
-    </Route>
-  )
-);
+          path="/"
+          element={<Root />}
+          loader={rootLoader}
+          action={rootAction}
+          errorElement={<ErrorPage />}
+        >
+          <Route errorElement={<ErrorPage />}>
+            <Route index element={<Index />} />
+            <Route
+              path="contacts/:contactId"
+              element={<Contact />}
+              loader={contactLoader}
+            />
+            <Route
+              path="paintings/:paintingId" 
+              element={<Painting />}
+              loader={paintingLoader}
+            />
+          </Route>
+        </Route>
+      )
+)
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
