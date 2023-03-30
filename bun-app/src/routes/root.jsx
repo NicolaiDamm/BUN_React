@@ -43,6 +43,7 @@ export default function Root() {
       <>
         <div id="sidebar">
           <h1>React Router Contacts</h1>
+          <h2><NavLink to='/'>Home</NavLink></h2>
           <div className="form-container">
             <Form id="search-form" role="search">
               <input
@@ -113,7 +114,7 @@ export default function Root() {
             <ul>
               {paintings.map((painting) => (
                 <li key={painting.id}>
-                  <NavLink to={`contacts/${painting.id}`}
+                  <NavLink to={`paintings/${painting.id}`}
                     className={({ isActive, isPending }) =>
                       isActive
                         ? "active"

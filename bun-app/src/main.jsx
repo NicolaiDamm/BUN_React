@@ -12,6 +12,9 @@ import Root, { loader as rootLoader, action as rootAction, } from "./routes/root
 import Contact, {
   loader as contactLoader
 } from "./routes/contact";
+import Painting, {
+  loader as paintingLoader
+} from "./routes/painting";
 import Index from "./routes/index";
 
 const router = createBrowserRouter(
@@ -29,6 +32,11 @@ const router = createBrowserRouter(
           path="contacts/:contactId"
           element={<Contact />}
           loader={contactLoader}
+        />
+        <Route
+          path="paintings/:paintingId" 
+          element={<Painting />}
+          loader={paintingLoader}
         />
       </Route>
     </Route>

@@ -13,14 +13,13 @@ export async function action({ request, params }) {
 
 function GameIFrame({ gameSource, pageSource, title}) {
     return (
-            <iframe frameBorder="0" src={gameSource} allowFullScreen="" width="640" height="660"><a href={pageSource}>{title} on itch.io</a></iframe>
+            <iframe frameBorder="0" src={gameSource} allowFullScreen={true} width="600" height="600"><a href={pageSource}>{title} on itch.io</a></iframe>
     )
 }
 
 export default function Contact() {
     const { contact } = useLoaderData();
     
-
     return (
         <div>
             <div>
@@ -33,31 +32,10 @@ export default function Contact() {
                         <i>No Nasdme</i>
                     )}{" "}
                 </h1>
-                <GameIFrame gameSource={contact.gameSource} pageSource={contact.pageSource} title={contact.title}/>
             </div>
             <div>
-                {contact.game}
+                <GameIFrame gameSource={contact.gameSource} pageSource={contact.pageSource} title={contact.title}/>
             </div>
         </div>
-    );
-}
-
-function Favorite({ contact }) {
-    const fetcher = useFetcher();
-    let favorite = contact.favorite;
-    return (
-        <fetcher.Form method="post">
-            <button
-                name="favorite"
-                value={favorite ? "false" : "true"}
-                aria-label={
-                    favorite
-                        ? "Remove from favorites"
-                        : "Add to favorites"
-                }
-            >
-                {favorite ? "★" : "☆"}
-            </button>
-        </fetcher.Form>
     );
 }

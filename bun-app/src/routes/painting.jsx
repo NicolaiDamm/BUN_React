@@ -1,8 +1,8 @@
 import { Form, useLoaderData, useFetcher, } from "react-router-dom";
-import { getPainting, getPaintings } from "../paintings";
+import { getPainting } from "../paintings";
 
 export async function loader({ params }) {
-    const painting = await getPaintings(params.contactId);
+    const painting = await getPainting(params.paintingId);
     return { painting };
 }
 
@@ -13,11 +13,11 @@ export async function action({ request, params }) {
 
 function PaintingFrame({ imgSource, title}) {
     return (
-      <img src={imgSource} alt={title} width="640" height="660"/> 
+      <img src={imgSource} alt={title} width="8 00" height="auto"/> 
     )
 }
 
-export default function Contact() {
+export default function Painting() {
     const { painting } = useLoaderData();
     
 
@@ -33,31 +33,10 @@ export default function Contact() {
                         <i>No Nasdme</i>
                     )}{" "}
                 </h1>
-                <PaintingFrame imgSource={painting.imgSource} title={painting.title}/>
             </div>
             <div>
-                {painting.game}
+                <PaintingFrame imgSource={painting.imgSource} title={painting.title}/>
             </div>
         </div>
-    );
-}
-
-function Favorite({ painting }) {
-    const fetcher = useFetcher();
-    let favorite = painting.favorite;
-    return (
-        <fetcher.Form method="post">
-            <button
-                name="favorite"
-                value={favorite ? "false" : "true"}
-                aria-label={
-                    favorite
-                        ? "Remove from favorites"
-                        : "Add to favorites"
-                }
-            >
-                {favorite ? "★" : "☆"}
-            </button>
-        </fetcher.Form>
     );
 }

@@ -9,6 +9,13 @@ const contacts = [
     desc: "description",
     gameSource: "https://itch.io/embed-upload/6934995?color=3b2230",
     pageSource: "https://sapph-ink.itch.io/night-time-walk"
+  },
+  {
+    id: "NightTimeWalk2",
+    title: "Night Time Walk 2",
+    desc: "description",
+    gameSource: "https://itch.io/embed-upload/6934995?color=3b2230",
+    pageSource: "https://sapph-ink.itch.io/night-time-walk"
   }
 ]
 
@@ -22,7 +29,6 @@ export async function getContacts(query) {
 }
 
 export async function getContact(id) {
-  let contacts = await localforage.getItem("contacts");
   let contact = contacts.find(contact => contact.id === id);
   return contact ?? null;
 }
