@@ -1,11 +1,13 @@
-import duneImage from '../assets/dune.png'
 import { paintings } from '../paintings';
 
 export default function Index() {
     return (
       <div>
         <h1>SapphInk's Lair of Wonders</h1>
-      <img src={paintings[getRandomInt(0, paintings.length)].imgSource}/>
+      {/* <img src={paintings[getRandomInt(0, paintings.length)].imgSource}/> */}
+      <div style={{backgroundImage: `url(${paintings[getRandomInt(0, paintings.length)].imgSource})`}} height="1000">
+        <h2>TEEEST</h2>
+      </div>
       <p id="zero-state">
         This is a demo for React Router.
         <br />
