@@ -2,7 +2,7 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
-const contacts = [
+export const contacts = [
   {
     id: "NightTimeWalk",
     title: "Night Time Walk",

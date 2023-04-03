@@ -11,7 +11,7 @@ export async function action({ request, params }) {
 }
 
 
-function GameIFrame({ gameSource, pageSource, title}) {
+export function GameIFrame({ gameSource, pageSource, title}) {
     return (
             <iframe frameBorder="0" src={gameSource} allowFullScreen={true} width="600" height="600"><a href={pageSource}>{title} on itch.io</a></iframe>
     )

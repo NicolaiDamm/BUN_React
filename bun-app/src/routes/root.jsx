@@ -10,6 +10,9 @@ import {
   import { useEffect } from "react";
   import { getContacts } from "../contacts";
   import { getPaintings } from "../paintings";
+  import { createGlobalStyle } from 'styled-components'
+  import * as sc from '../styledComponents'
+
 
   export async function action() {
     //const contact = await createContact();
@@ -23,6 +26,10 @@ import {
     const paintings = await getPaintings(q);
     return { contacts, paintings, q };
   }
+
+
+
+  
 
 export default function Root() {
     const { contacts, paintings, q } = useLoaderData();
@@ -41,9 +48,13 @@ export default function Root() {
 
     return (
       <>
+       <GlobalStyle/>
         <div id="sidebar">
-          <h1>React Router Contacts</h1>
-          <h2><NavLink to='/'>Home</NavLink></h2>
+          {/* <h1>React Router Contacts</h1> */}
+          <sc.HomeSearch>
+          <h2><NavLink to='/'>
+          <svg xmlns="http://www.w3.org/2000/svg" height="42" viewBox="0 96 960 960" width="42"><path d="M225.385 870.615h155.77v-245h197.69v245h155.77V488.693L480 296.77 225.385 488.564v382.051Zm-45.384 45.384V466.001L480 240.233l299.999 225.768v449.998H533.462v-245H426.538v245H180.001ZM480 583.385Z"/></svg>
+            </NavLink></h2>
           <div className="form-container">
             <Form id="search-form" role="search">
               <input
@@ -72,12 +83,14 @@ export default function Root() {
               ></div>
             </Form>
           </div>
-          <nav>
-            <h3>
+          </sc.HomeSearch>
+          <sc.NoScrollNav>
+            <sc.NavH1>
               Games
-            </h3>
+            </sc.NavH1>
           {contacts.length ? (
-            <ul>
+            <div>
+            <sc.ContentUl>
               {contacts.map((contact) => (
                 <li key={contact.id}>
                   <NavLink to={`contacts/${contact.id}`}
@@ -99,19 +112,21 @@ export default function Root() {
                   </NavLink>
                 </li>
               ))}
-            </ul>
+            </sc.ContentUl>
+            </div>
           ) : (
             <p>
-              <i>No contacts</i>
+              <i>No games found</i>
             </p>
           )}
-          </nav>
-          <nav>
-            <h3>
+          </sc.NoScrollNav>
+          <sc.NoScrollNav>
+            <sc.NavH1>
               Paintings
-            </h3>
+            </sc.NavH1>
           {paintings.length ? (
-            <ul>
+            <div>
+            <sc.ContentUl>
               {paintings.map((painting) => (
                 <li key={painting.id}>
                   <NavLink to={`paintings/${painting.id}`}
@@ -133,13 +148,14 @@ export default function Root() {
                   </NavLink>
                 </li>
               ))}
-            </ul>
+            </sc.ContentUl>
+            </div>
           ) : (
             <p>
-              <i>No contacts</i>
+              <i>No paintings found</i>
             </p>
           )}
-          </nav>
+          </sc.NoScrollNav>
         </div>
         <div
         id="detail"
@@ -147,8 +163,22 @@ export default function Root() {
           navigation.state === "loading" ? "loading" : ""
         }
       >
+    
             <Outlet />
         </div>
       </>
     );
   }
+
+
+
+  const GlobalStyle = createGlobalStyle`
+    body {
+      //font-family: 'Playfair Display', serif;
+      //font-family: 'Jim Nightshade';
+      font-family: 'Josefin Sans';
+      //font-family: 'Lavishly Yours';
+      //font-family: 'Tillana';
+    }
+       
+  `

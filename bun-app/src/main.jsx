@@ -17,6 +17,7 @@ import Painting, {
   loader as paintingLoader
 } from "./routes/painting";
 import Index from "./routes/index";
+import { createGlobalStyle } from "styled-components";
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
