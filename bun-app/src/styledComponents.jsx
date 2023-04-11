@@ -17,6 +17,15 @@ export const HorzPaintingFrame = styled(PaintingFrame)`
     max-width: auto;
     width: fill;
     border-radius: 8px;
+    //disable blue highlight
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+-webkit-tap-highlight-color: transparent;
+-webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
 `;
 
 export const GameContainer = styled.div`
@@ -35,6 +44,11 @@ export const GameContainer = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  //disable blue highlight
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+-webkit-tap-highlight-color: transparent;
+
 `;
 
 export const BackgroundDiv = styled.div`
@@ -144,7 +158,7 @@ export const ContentUl = styled.ul`
 
 export const NoScrollNav = styled.nav`
   flex: 1;
-  overflow: auto;
+  overflow: clip;
   padding-top: 1rem;
 
   //overflow: hidden;
@@ -160,7 +174,7 @@ export const DownloadButton = styled.button`
   //position: fixed;
   margin: 0.5rem;
   padding: 1rem;
-  border: 2px solid green;
+  border: 2px solid #fff8e724;
   text-align: center;
 `
 
@@ -184,22 +198,33 @@ export const HomeSearch = styled.div`
     transform: translate(-5%, 0%);
 `
 
-export const LeftInlineSvg = styled.svg`
+export const LeftInlineButton = styled.button`
   //position: fixed;
     display: flex;
     position: absolute;
     left: 20em;
-    flex: 1
+    flex: 1;
     transform: translate(0%, 0%);
-
+    background: rgba(0,0,0, 0)
 `
 
-export const RigthInlineSvg = styled.svg`
+export const RigthInlineButton = styled.button`
   //position: fixed;
     display: flex;
     position: absolute;
     right: 2em;
-    flex: 1
+    flex: 1;
     transform: translate(0%, 0%);
-
+    background: rgba(0,0,0, 0)
+`
+export const TagsUl = styled.ul`
+margin: 0;
+padding: 0;
+  list-style: none;
+  white-space: nowrap;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch; /* for smooth scrolling on iOS devices */
+  display: flex;
+    justify-content: space-between;
+    gap: 1em;
 `

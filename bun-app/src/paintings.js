@@ -1,22 +1,22 @@
 import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
-import duneImage from './assets/dune.png';
-import bigBoiImage from './assets/BigBoiExplore.jfif';
-import comicImage from './assets/comicStripTry.png';
-import fieldImage from './assets/field.png';
-import forestImage from './assets/forest.png';
-import hillsImage from './assets/hills.png';
-import snowyForestImage from './assets/snowyForest.png';
-import statueImage from './assets/Statue.png';
-import vofImage from './assets/Vof.png';
+import duneImage from './assets/discovery/dune.png';
+import bigBoiImage from './assets/discovery/BigBoiExplore.jfif';
+import comicImage from './assets/discovery/comicStripTry.png';
+import fieldImage from './assets/discovery/field.png';
+import forestImage from './assets/discovery/forest.png';
+import hillsImage from './assets/discovery/hills.png';
+import snowyForestImage from './assets/discovery/snowyForest.png';
+import statueImage from './assets/discovery/Statue.png';
+import vofImage from './assets/discovery/Vof.png';
 
-import ttrpg1Image from './assets/ttrpg1.jfif';
-import ttrpg2Image from './assets/ttrpg2.jfif';
-import ttrpg3Image from './assets/ttrpg3.jfif';
-import ttrpgYear1Image from './assets/Week1.jfif';
-import ttrpgYear2Image from './assets/Week2.jfif';
-import ttrpgYear3Image from './assets/Week3.jfif';
+import ttrpg1Image from './assets/ttrpg/citadelOfThePrince.png';
+import ttrpg2Image from './assets/ttrpg/veiledDungeon.png';
+import ttrpg3Image from './assets/ttrpg/frozenChambers.png';
+import ttrpgYear1Image from './assets/ttrpg/weekly1Entrance.png';
+import ttrpgYear2Image from './assets/ttrpg/weekly2intoTheDepths.png';
+import ttrpgYear3Image from './assets/ttrpg/weekly3RushingWater.png';
 
 export const paintings = [
   {
@@ -33,13 +33,6 @@ export const paintings = [
     imgSource: bigBoiImage,
     tags: "exploration"
   },
-  // {
-  //   id: "testPainting3",
-  //   title: "Test Painting 3",
-  //   desc: "description",
-  //   imgSource: comicImage,
-  //   tags: "exploration"
-  // },
   {
     id: "field",
     title: "Field",
@@ -84,7 +77,7 @@ export const paintings = [
   },
   {
     id: "ttrpg1",
-    title: "Ttrpg Dungeon Map 1",
+    title: "Ttrpg - Citadel of the Prince",
     desc: "description",
     imgSource: ttrpg1Image,
     tags: "ttrpg",
@@ -92,7 +85,7 @@ export const paintings = [
   },
   {
     id: "ttrpg2",
-    title: "Ttrpg Dungeon Map 2",
+    title: "Ttrpg - Veiled Dungeon",
     desc: "description",
     imgSource: ttrpg2Image,
     tags: "ttrpg",
@@ -100,7 +93,7 @@ export const paintings = [
   },
   {
     id: "ttrpg3",
-    title: "Ttrpg Dungeon Map 3",
+    title: "AFrozen Chambers",
     desc: "description",
     imgSource: ttrpg3Image,
     tags: "ttrpg",
@@ -108,7 +101,7 @@ export const paintings = [
   },
   {
     id: "ttrpgWeek1",
-    title: "Ttrpg Weekly Dungeon 1",
+    title: "Ttrpg Weekly 1 - The Entrance",
     desc: "description",
     imgSource: ttrpgYear1Image,
     tags: "ttrpg",
@@ -116,7 +109,7 @@ export const paintings = [
   },
   {
     id: "ttrpgWeek2",
-    title: "Ttrpg Weekly Dungeon 2",
+    title: "Ttrpg Weekly 2 - Into the Depths",
     desc: "description",
     imgSource: ttrpgYear2Image,
     tags: "ttrpg",
@@ -124,7 +117,7 @@ export const paintings = [
   },
   {
     id: "ttrpgWeek3",
-    title: "Ttrpg Weekly Dungeon 3",
+    title: "Ttrpg Weekly 3 - Rushing Waters",
     desc: "description",
     imgSource: ttrpgYear3Image,
     tags: "ttrpg",
