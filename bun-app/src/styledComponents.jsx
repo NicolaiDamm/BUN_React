@@ -1,7 +1,9 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { GameIFrame } from "./routes/contact";
 import { NavLink } from 'react-router-dom';
 import DownloadSvg from "./assets/download.svg"
+import { MyComponent } from './routes';
+import { FireballLeft, FireballRight } from './fireball';
 
 export const PaintingFrame = styled.img`
   width: auto;
@@ -15,7 +17,7 @@ export const HorzPaintingFrame = styled(PaintingFrame)`
     max-height: 600px;
     height: 100%;
     max-width: auto;
-    width: fill;
+    width: auto;
     border-radius: 8px;
     //disable blue highlight
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -72,47 +74,6 @@ export const ContentDiv = styled.div`
     margin: auto;
 `;
 
-export const FrontpageHeader = styled.h1`
-     //font-family: 'Playfair Display', serif;
-     //font-family: 'Jim Nightshade';
-     //font-family: 'Josefin Sans';
-     font-family: 'Lavishly Yours', sans-serif;
-     //font-family: 'Tillana';
-  font-size: 4rem;
-  text-align: center;
-  color: #fff8e7;
-  text-shadow: 5px 5px 0px rgba(0,0,0,1);
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-  position: relative;
-
-  &:before {
-    content: '';
-  position: absolute;
-  top: 50%;
-  left: -2rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background-color: #fff8e7;
-  transform: translateY(-50%);
-  z-index: -1;
-  }
-
-  &:after {
-    content: '';
-  position: absolute;
-  top: 50%;
-  right: -2rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background-color: #fff8e7;
-  transform: translateY(-50%);
-  z-index: -1;
-  }
-`;
-
 export const SocialsDiv = styled.ul`
   border-radius: 5px;
   background-color: #fff8e7;
@@ -142,25 +103,51 @@ export const NavH1 = styled.h3`
   margin-left: 0;
 `
 export const ContentUl = styled.ul`
+flex: 2;
   margin: 0;
   //margin-top: 4em;
   padding: 0;
+  padding-bottom: 3em;
   list-style: none;
   overflow: scroll;
-  height: 37vh;
+  height: 100%;
+  position: relative; /* add relative position to the parent element */
   /* disable browser scroll when scrolling over the container */
   &::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+  
+  /* &::after {
+    pointer-events: none;
+    position: absolute;
+  content:'';
+  width:100%;
+  height:5em;    
+  left: 0;
+    bottom: 0em;
+  background:linear-gradient(rgba(255,255,255,0) 15px, #ee0707);
+  } */
+`
+
+export const PaintingsUl = styled(ContentUl)`
+height: 20em;
+padding-bottom: 0em;
+`
+
+export const UlWrapper = styled.div`
+  flex: content;
 `
 
 export const NoScrollNav = styled.nav`
-  flex: 1;
-  overflow: clip;
+  flex: 10;
+  overflow: auto;
   padding-top: 1rem;
+  overflow-y: hidden;
 
+
+  
   //overflow: hidden;
     /* disable browser scroll when scrolling over the container */
   /* &::-webkit-scrollbar {
@@ -168,6 +155,10 @@ export const NoScrollNav = styled.nav`
   }
   -ms-overflow-style: none;
   scrollbar-width: none; */
+`
+
+export const NoScrollNavBottom = styled(NoScrollNav)`
+  flex:13;
 `
 
 export const DownloadButton = styled.button`
@@ -217,14 +208,170 @@ export const RigthInlineButton = styled.button`
     transform: translate(0%, 0%);
     background: rgba(0,0,0, 0)
 `
+
+export const TestDiv = styled.div`
+  width: 100%;
+  height: 37vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 10px;
+`;
+
+export const ContentContainer = styled.div`
+  margin-top: 4em;
+  padding-bottom: 2em; /* Add some bottom padding */
+  height: calc(100vh - 4em - 2em); /* Calculate height based on remaining space */
+  overflow-y: auto; /* Enable vertical scrolling */
+  -webkit-overflow-scrolling: touch; /* for smooth scrolling on iOS devices */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
+
+export const Showcase = styled(MyComponent)`
+ width: 100%;
+`;
+
+export const TagButton = styled.button`
+  /* button styles here */
+  background-color: ${({ active }) => (active ? "#f08f34d3" : "#fffaef")};
+  color: ${({ active }) => (active ? "white" : "black")};
+`;
+
+export const FrontpageHeader = styled.h1`
+     //font-family: 'Playfair Display', serif;
+     //font-family: 'Jim Nightshade';
+     //font-family: 'Josefin Sans';
+     font-family: 'Lavishly Yours', sans-serif;
+     //font-family: 'Tillana';
+  font-size: 4rem;
+  text-align: center;
+  color: #fff8e7;
+  text-shadow: 5px 5px 0px rgba(0,0,0,1);
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+ flex: 1;
+`;
+
+export const StyledFireballLeft = styled(FireballLeft)`
+display: inline;
+margin-right: 1rem; /* adjust as necessary */
+`;
+
+export const IconDiv = styled.div`
+margin-top: 2.7rem;
+`;
+
+export const HeaderDiv = styled.div`
+display: flex;
+
+`;
+
 export const TagsUl = styled.ul`
 margin: 0;
-padding: 0;
+padding-left: 0.5em;
+padding-right: 0.5em;
   list-style: none;
   white-space: nowrap;
-  overflow-x: scroll;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch; /* for smooth scrolling on iOS devices */
   display: flex;
+  flex: 1;
     justify-content: space-between;
     gap: 1em;
+    overflow-y: hidden;
+
+    overscroll-behavior-y: contain;
+  /* disable browser scroll when scrolling over the container */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `
+export const LeftArrowDiv = styled.div`
+
+
+`;
+
+export const RightArrowDiv = styled.div`
+
+
+`;
+
+export const TagUlDiv = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  // add these styles to position the arrow divs absolutely
+  & > ${LeftArrowDiv}, & > ${RightArrowDiv} {
+    position: absolute;
+    top: 0;
+  }
+
+  & > ${LeftArrowDiv} {
+    left: 0;
+    transform: translateX(-100%) translateY(25%);
+
+  }
+
+  & > ${RightArrowDiv} {
+    right: 0;
+    transform: translateX(100%) translateY(25%);
+
+  }
+`;
+
+export const PartyButton = styled.button`
+padding: 0.5em 3em 0.5em 3em;
+margin-left: 2em;
+margin-top: 0.5em;
+background-color: pink;
+color: black;
+`;
+
+const shake = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-5deg);
+  }
+  20% {
+    transform: rotate(5deg);
+  }
+  30% {
+    transform: rotate(-5deg);
+  }
+  40% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+  60% {
+    transform: rotate(2deg);
+  }
+  70% {
+    transform: rotate(-2deg);
+  }
+  80% {
+    transform: rotate(2deg);
+  }
+  90% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+`;
+
+export const PartyHeader = styled.h1`
+  font-size: 3rem;
+  animation: ${shake} 4s ease-in-out infinite;
+`;

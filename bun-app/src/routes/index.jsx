@@ -3,6 +3,7 @@ import { GameIFrame } from './contact';
 import { contacts } from '../contacts';
 import * as sc from '../styledComponents'
 import { useState, useEffect, useRef, createRef, useMemo } from 'react';
+import { FireballLeft, FireballRight } from '../fireball';
 
 
 function getImageFromTag(matchingPaintings) {
@@ -16,14 +17,18 @@ export default function Index() {
 
   const painting = paintings[getRandomInt(0, paintings.length)]
   const matchingPaintings = paintings.filter((p) =>
-  p.tags.includes("exploration")
+  p.tags.includes("Discovery")
 )
   return (
     <div style={{ justifyContent: 'center' }}>
       <sc.BackgroundDiv style={{ backgroundImage: `url(${getImageFromTag(matchingPaintings
 ).imgSource})` }} />
       <sc.ContentDiv>
+        <sc.HeaderDiv>
+        <FireballLeft/>
         <sc.FrontpageHeader>SapphInk's Lair of Wonders</sc.FrontpageHeader>
+        <FireballRight/>
+        </sc.HeaderDiv>
         <sc.SocialsDiv>
           <li><a href='https://twitter.com/Sapph_Ink'>Twitter:<br />@Sapph_Ink</a></li>
           <li><a href='https://sapph1nk.tumblr.com/'>Tumblr:<br />@sapph1nk</a></li>
@@ -31,18 +36,13 @@ export default function Index() {
           <li><a href='https://mastodon.gamedev.place/@Sapph_Ink'>Mastadon:<br />@Sapph_Ink</a></li>
         </sc.SocialsDiv>
         <div>
-          <MyComponent tags="exploration"></MyComponent>
-          <MyComponent tags="ttrpg"></MyComponent>
-          <MyComponent tags=""></MyComponent>
+          <sc.Showcase tags="Discovery"></sc.Showcase>
+          <sc.Showcase tags="Rage"></sc.Showcase>
+          <sc.Showcase tags="Ttrpg"></sc.Showcase>
+          <sc.Showcase tags="Megacorp"></sc.Showcase>
         </div>
         <p id="zero-state">
-          This is a demo for React Router.
-          <br />
-          Check out{" "}
-          <a href="https://reactrouter.com">
-            the docs at reactrouter.com
-          </a>
-          .
+          This website was created by SapphInk's friend Nico
         </p>
       </sc.ContentDiv>
     </div>
@@ -60,7 +60,7 @@ const ScrollerWrapper = (props) => {
   return
 }
 
-const MyComponent = (props) => {
+export const MyComponent = (props) => {
   const myRef = createRef();
   const [isEndReached, setIsEndReached] = useState(false);
   const [isStartReached, setIsStartReached] = useState(true);
@@ -171,10 +171,10 @@ const MyComponent = (props) => {
   }, []);
 
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
+    <div style={{ display: "flex", alignItems: "center"}}>
       {!isStartReached ?
-        <sc.LeftInlineButton>
-          <svg onClick={handleLeftArrowClick} xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path fill="#fffaef" d="M560.615 802.153 333.847 575.385l226.768-227.153 32.615 32.614-194.154 194.539L593.23 769.538l-32.615 32.615Z" /></svg>
+        <sc.LeftInlineButton onClick={handleLeftArrowClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path fill="#fffaef" d="M560.615 802.153 333.847 575.385l226.768-227.153 32.615 32.614-194.154 194.539L593.23 769.538l-32.615 32.615Z" /></svg>
         </sc.LeftInlineButton>
         : null
       }
@@ -184,8 +184,8 @@ const MyComponent = (props) => {
         ))}
       </sc.GameContainer>
       {!isEndReached ?
-        <sc.RigthInlineButton>
-          <svg onClick={handleRightArrowClick} xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path fill="#fffaef" d="m375.385 802.153-32.615-32.615 194.154-194.153L342.77 380.846l32.615-32.614 226.768 227.153-226.768 226.768Z" /></svg>
+        <sc.RigthInlineButton onClick={handleRightArrowClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path fill="#fffaef" d="m375.385 802.153-32.615-32.615 194.154-194.153L342.77 380.846l32.615-32.614 226.768 227.153-226.768 226.768Z" /></svg>
         </sc.RigthInlineButton>
         : null}
     </div>

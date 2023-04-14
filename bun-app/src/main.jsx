@@ -18,6 +18,7 @@ import Painting, {
 } from "./routes/painting";
 import Index from "./routes/index";
 import { createGlobalStyle } from "styled-components";
+import Celebration from "./routes/celebration";
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
@@ -68,6 +69,10 @@ const router = createHashRouter(
               element={<Painting />}
               loader={paintingLoader}
             />
+            <Route
+            path="celebration" 
+            element={<Celebration />}
+          />
           </Route>
         </Route>
       )

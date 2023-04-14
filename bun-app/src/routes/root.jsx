@@ -7,12 +7,13 @@ import {
   useNavigation,
   useSubmit,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getContacts } from "../contacts";
 import { getPaintings } from "../paintings";
 import { createGlobalStyle } from 'styled-components'
 import * as sc from '../styledComponents'
-
+import fireballSvg from '../assets/fireball.svg'
+import { FireballLeft, FireballRight, LeftArrow, RightArrow } from "../fireball";
 
 export async function action() {
   //const contact = await createContact();
@@ -23,7 +24,7 @@ export async function loader({ request }) {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   const contacts = await getContacts(q);
-  const paintings = await getPaintings(q);
+  const paintings = await getPaintings();
 
   paintings.sort((a, b) => {
     // Compare tags
@@ -98,12 +99,19 @@ export default function Root() {
             </Form>
           </div>
         </sc.HomeSearch>
+        {(q == "celebration") ?
+        
+        <NavLink to={`celebration`} ><sc.PartyButton>test</sc.PartyButton></NavLink>
+        
+        : null
+        }
+        
         <sc.NoScrollNav>
           <sc.NavH1>
             Games
           </sc.NavH1>
           {contacts.length ? (
-            <div>
+            
               <sc.ContentUl>
                 {contacts.map((contact) => (
                   <li key={contact.id}>
@@ -127,50 +135,17 @@ export default function Root() {
                   </li>
                 ))}
               </sc.ContentUl>
-            </div>
+            
           ) : (
             <p>
               <i>No games found</i>
             </p>
           )}
         </sc.NoScrollNav>
-        <sc.NoScrollNav>
-          {/* <sc.NavH1>
-              Paintings
-            </sc.NavH1>
-          {paintings.length ? (
-            <div>
-            <sc.ContentUl>
-              {paintings.map((painting) => (
-                <li key={painting.id}>
-                  <NavLink to={`paintings/${painting.id}`}
-                    className={({ isActive, isPending }) =>
-                      isActive
-                        ? "active"
-                        : isPending
-                        ? "pending"
-                        : ""
-                    }
-                  >
-                    {painting.title ? (
-                      <>
-                        {painting.title}
-                      </>
-                    ) : (
-                      <i>No Name</i>
-                    )}{" "}
-                  </NavLink>
-                </li>
-              ))}
-            </sc.ContentUl>
-            </div>
-          ) : (
-            <p>
-              <i>No paintings found</i>
-            </p>
-          )} */}
+        
+      
           <Paintings />
-        </sc.NoScrollNav>
+        
       </div>
       <div
         id="detail"
@@ -201,7 +176,7 @@ const GlobalStyle = createGlobalStyle`
 
 
 const Paintings = () => {
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState("Discovery");
   const { paintings } = useLoaderData();
   const paintingsByTags = paintings.reduce((acc, painting) => {
     const { tags, ...rest } = painting;
@@ -212,26 +187,83 @@ const Paintings = () => {
     return acc;
   }, {});
 
+  const containerRef = useRef(null);
+  const [isEndReached, setIsEndReached] = useState(false);
+  const [isStartReached, setIsStartReached] = useState(true);
+
   const handleSelect = (tag) => {
     setSelectedTag(tag);
+    const buttons = document.querySelectorAll(".selected");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("selected");
+  }
+  const selectedButton = document.querySelector(`button[value="${tag}"]`);
+  if (selectedButton) {
+    selectedButton.classList.add("selected");
+  }
+  };
+
+  const handleScroll = () => {
+
+
+    const container = containerRef.current;
+    console.log(container.scrollLeft + " : " + (container.scrollWidth - container.clientWidth) + " : " + container.clientWidth)
+    if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 1) {
+      setIsEndReached(true);
+      console.log("here")
+
+    }
+    else if (container.scrollLeft < 1) {
+      setIsStartReached(true);
+      console.log("here2")
+
+    }
+    else {
+      setIsStartReached(false);
+      setIsEndReached(false);
+    }
   };
 
   return (
-    <>
+    <sc.NoScrollNavBottom>
       <sc.NavH1>
         Paintings
       </sc.NavH1>
-      <sc.TagsUl>
+      <sc.TagUlDiv>
+      {!isStartReached ?
+          <LeftArrow/>
+        : null
+      }
+      
+      <sc.TagsUl ref={containerRef} onWheel={(e) => {
+    const container = e.currentTarget;
+    const containerScrollPosition = container.scrollLeft;
+    container.scrollTo({
+      top: 0,
+      left: containerScrollPosition + e.deltaY,
+      behavior: 'smooth'
+    });
+  }} onScroll={handleScroll}>
         {Object.keys(paintingsByTags).map((tag) => (
-          <li key={tag}>
-            <button onClick={() => handleSelect(tag)}>{tag}</button>
-          </li>
+          <Tag
+          key={tag}
+          tag={tag}
+          active={tag === selectedTag}
+          onClick={() => handleSelect(tag)}
+        />
         ))}
       </sc.TagsUl>
-      <sc.NavH1>{selectedTag}</sc.NavH1>
+      
+      {!isEndReached ?
+          <RightArrow/>
+          : null
+      }
+      </sc.TagUlDiv>
+
+      <sc.UlWrapper> 
       {selectedTag && (
-        <div>
-          <sc.ContentUl>
+  
+          <sc.PaintingsUl>
             {paintingsByTags[selectedTag].map((painting) => (
               <li key={painting.id}>
                 <NavLink to={`paintings/${painting.id}`}
@@ -253,10 +285,20 @@ const Paintings = () => {
                 </NavLink>
               </li>
             ))}
-          </sc.ContentUl>
+          </sc.PaintingsUl>
 
-        </div>
       )}
-    </>
+      </sc.UlWrapper>
+     </sc.NoScrollNavBottom>
   );
 };
+
+function Tag({ tag, active, onClick }) {
+  return (
+    <li>
+      <sc.TagButton onClick={onClick} active={active}>
+        {tag}
+      </sc.TagButton>
+    </li>
+  );
+}
